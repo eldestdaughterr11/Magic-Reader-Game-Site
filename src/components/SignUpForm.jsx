@@ -16,13 +16,13 @@ const SignUpForm = ({ onSignUpSuccess, onSwitchToLogin }) => {
     setLoading(true);
 
     try {
-        // Supabase SignUp
         const { data, error: signUpError } = await supabase.auth.signUp({
             email: formData.email,
             password: formData.password,
             options: {
               data: {
                 username: formData.username,
+                full_name: formData.username,
               }
             }
         });
