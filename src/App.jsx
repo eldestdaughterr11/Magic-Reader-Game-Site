@@ -31,7 +31,7 @@ function App() {
               const adminStatus = initialSession.user?.email === 'admin@magicreader.com';
               setIsAdmin(adminStatus);
               
-              if (currentView === "login" || currentView === "signup" || currentView === "loading" || currentView === "admin-login") {
+              if (currentView === "login" || currentView === "loading" || currentView === "admin-login") {
                 setCurrentView(adminStatus ? "admin-dashboard" : "home");
               }
             } else {
@@ -54,7 +54,7 @@ function App() {
         const adminStatus = newSession.user?.email === 'admin@magicreader.com';
         setIsAdmin(adminStatus);
         
-        if (currentView === "login" || currentView === "signup" || currentView === "loading" || currentView === "admin-login") {
+        if (currentView === "login" || currentView === "loading" || currentView === "admin-login") {
           setCurrentView(adminStatus ? "admin-dashboard" : "home");
         }
       } else {

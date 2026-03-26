@@ -33,7 +33,6 @@ const SignUpForm = ({ onSignUpSuccess, onSwitchToLogin }) => {
         // to prevent auto-login and force them to manual login
         await supabase.auth.signOut();
 
-        alert("Account created successfully! You can now log in.");
         onSignUpSuccess && onSignUpSuccess();
     } catch (err) {
         setError(err.message || "An error occurred during sign up.");
