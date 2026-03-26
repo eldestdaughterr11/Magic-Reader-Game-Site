@@ -117,18 +117,95 @@ const GameView = ({ user }) => {
     </>
   );
 
+  const gameCharacters = [
+    {
+      name: "Penn",
+      desc: "The male lead student who is jolly and enjoys playing with his classmates, but is often found struggling with reading words and sentences.",
+      placeholder: "bg-blue-800 text-white",
+      letter: "P"
+    },
+    {
+      name: "Paige",
+      desc: "The female lead student who loves learning with her friends, but is often found struggling with English subjects because she struggles with reading words and sentences.",
+      placeholder: "bg-pink-800 text-white",
+      letter: "P"
+    },
+    {
+      name: "The Guide (Pip the Owl) NPC",
+      desc: "Pip is the Mayor of Word Valley and appears as a magical owl. She acts as a guide and tutorial system. She provides vocal guidance and clues to help the player navigate the challenges without revealing the direct answer.",
+      placeholder: "bg-amber-700 text-white",
+      letter: "P"
+    },
+    {
+      name: "The Archmage (NPC)",
+      desc: "The powerful mage who serves as Word Valley's protector and guardian. She was cursed and transformed into an owl by Miss Spell. The townspeople admire her for her genuine heart towards her magical skills. She is revealed at the game's conclusion when the curse is finally broken.",
+      placeholder: "bg-purple-600 text-white",
+      letter: "A"
+    },
+    {
+      name: "The Antagonist (Miss Spell) NPC",
+      desc: "Miss Spell is the wicked boss of the Word Valley. Her motivation stems from frustration rather than evil. For letters and words appear to disobey her, just like the protagonist. Driven by envy, she casts the curse to scramble the language of the realm and bends the physical letters of the world into fragmented pieces.",
+      placeholder: "bg-green-800 text-white",
+      letter: "M"
+    },
+    {
+      name: "Sylla Belle",
+      desc: "Sylla Belle is a non-interactable NPC, who appears at the end of the game, receiving the Secret Book from Penn or Paige, and has a striking resemblance to Miss Spell.",
+      placeholder: "bg-indigo-600 text-white",
+      letter: "S"
+    },
+    {
+      name: "Town Governor: Sheriff Sans (House A)",
+      desc: "House 'A' Governed by Sheriff Sans. The player uses the wand to pick up fragmented parts of citizens and places them into the correct spots. This visual puzzle tests letter recognition and formation.",
+      placeholder: "bg-blue-500 text-white",
+      letter: "A"
+    },
+    {
+      name: "Town Governor: Judge Mental (House E)",
+      desc: "House E Governed by Judge Mental. The player needs to complete sentences on a scroll. They must use the magic wand to select the correct fitting verb such as (is or are) to complete the sentence grammar.",
+      placeholder: "bg-yellow-200 text-black",
+      letter: "E"
+    },
+    {
+      name: "Town Governor: Penny Cil (House I)",
+      desc: "House I Governed by Penny Cil. This area focuses on spelling and word arrangement. The player must retrieve scattered letters from the level and arrange them in the correct sequence to form a valid word.",
+      placeholder: "bg-yellow-400 text-black",
+      letter: "I"
+    },
+    {
+      name: "Town Governor: Grandma Phonic (House O)",
+      desc: "House O Governed by Grandma Phonics. This is an auditory challenge where the player listens to a magical music track. They must choose the correct rhyming words to complete the lyrics of a song.",
+      placeholder: "bg-pink-300 text-black",
+      letter: "O"
+    },
+    {
+      name: "Town Governor: Connie Sonant (House U)",
+      desc: "House U Directed by Connie Sonant. Set in a classic library, this puzzle tests auditory vowel recognition. The player listens to a recorded word and must identify the specific vowel sound used in the audio clip.",
+      placeholder: "bg-red-400 text-white",
+      letter: "U"
+    },
+    {
+      name: "Teacher and Students (Non-interactable NPCs)",
+      desc: "Teachers and students are non-interactable NPCs who appear in the cutscenes (Intro and Outro) to portray a classroom environment.",
+      placeholder: "bg-gray-400 text-white",
+      letter: "T"
+    }
+  ];
+
   const renderCharacters = () => (
-    <section className="w-full max-w-4xl space-y-12">
-        <h2 className="font-magic text-5xl text-center text-[#E9D5FF]">Meet the Characters</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {challenges.map(char => (
-                <div key={char.name} className="bg-[#2D1E3A] border-2 border-[#E9D5FF]/20 p-8 rounded-lg flex items-start gap-6 hover:border-yellow-400/50 transition-all group">
-                    <div className={`w-20 h-20 shrink-0 ${char.color} rounded-full flex items-center justify-center font-black text-4xl text-white shadow-xl group-hover:scale-110 transition-transform`}>
+    <section className="w-full max-w-5xl space-y-12">
+        <div className="flex flex-col gap-12 md:gap-16 w-full">
+            {gameCharacters.map((char, i) => (
+                <div key={char.name} className="flex flex-col md:flex-row items-center gap-8 md:gap-16 hover:bg-white/5 transition-colors rounded-xl p-4 md:p-8">
+                    {/* Placeholder for Character Sprite (You can replace this with <img src={...} /> later) */}
+                    <div className={`w-36 h-36 md:w-48 md:h-48 shrink-0 ${char.placeholder} rounded-2xl flex items-center justify-center font-black text-6xl shadow-2xl transform hover:scale-105 transition-all outline outline-4 outline-white/10`}>
                         {char.letter}
                     </div>
-                    <div className="space-y-2">
-                        <h4 className="font-magic text-3xl text-yellow-400">{char.name}</h4>
-                        <p className="text-white/80 font-bold">{char.text}</p>
+                    
+                    {/* Centered Character Text block */}
+                    <div className="flex-1 flex flex-col items-center justify-center text-center space-y-4 px-2 w-full max-w-2xl">
+                        <h4 className="font-magic text-3xl md:text-5xl text-yellow-500 drop-shadow-md">{char.name}</h4>
+                        <p className="text-white/90 font-bold text-lg md:text-xl leading-relaxed">{char.desc}</p>
                     </div>
                 </div>
             ))}
