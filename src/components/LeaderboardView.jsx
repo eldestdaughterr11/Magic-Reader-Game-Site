@@ -12,14 +12,28 @@ const LeaderboardView = () => {
   const fetchLeaderboard = async () => {
     try {
       setLoading(true);
+      // Fetch all scores to correctly aggregate total points per player
       const { data, error } = await supabase
         .from('leaderboards')
-        .select('*')
-        .order('score', { ascending: false })
-        .limit(10);
+        .select('username, score');
 
       if (error) throw error;
-      setScores(data || []);
+
+      // Group by username and sum up points
+      const aggregated = {};
+      (data || []).forEach(entry => {
+          if (!aggregated[entry.username]) {
+              aggregated[entry.username] = { username: entry.username, score: 0 };
+          }
+          aggregated[entry.username].score += entry.score;
+      });
+
+      // Sort highest to lowest, then take Top 10
+      const sortedTopPlayers = Object.values(aggregated)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 10);
+
+      setScores(sortedTopPlayers);
     } catch (err) {
       console.error('Error fetching leaderboard:', err.message);
     } finally {
