@@ -128,7 +128,8 @@ const GameView = ({ user }) => {
       name: "Paige",
       desc: "The female lead student who loves learning with her friends, but is often found struggling with English subjects because she struggles with reading words and sentences.",
       placeholder: "bg-pink-800 text-white",
-      letter: "P"
+      letter: "P",
+      image: "/assets/paige.png"
     },
     {
       name: "The Guide (Pip the Owl) NPC",
@@ -197,9 +198,15 @@ const GameView = ({ user }) => {
         <div className="flex flex-col gap-12 md:gap-16 w-full">
             {gameCharacters.map((char, i) => (
                 <div key={char.name} className="flex flex-col md:flex-row items-center gap-8 md:gap-16 hover:bg-white/5 transition-colors rounded-xl p-4 md:p-8">
-                    {/* Placeholder for Character Sprite (You can replace this with <img src={...} /> later) */}
-                    <div className={`w-36 h-36 md:w-48 md:h-48 shrink-0 ${char.placeholder} rounded-2xl flex items-center justify-center font-black text-6xl shadow-2xl transform hover:scale-105 transition-all outline outline-4 outline-white/10`}>
-                        {char.letter}
+                    {/* Character Image OR Placeholder */}
+                    <div className="w-48 h-48 md:w-56 md:h-56 shrink-0 flex items-center justify-center transform hover:scale-105 transition-all">
+                        {char.image ? (
+                            <img src={char.image} alt={char.name} className="max-w-full max-h-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]" />
+                        ) : (
+                            <div className={`w-36 h-36 md:w-48 md:h-48 ${char.placeholder} rounded-2xl flex items-center justify-center font-black text-6xl shadow-2xl outline outline-4 outline-white/10`}>
+                                {char.letter}
+                            </div>
+                        )}
                     </div>
                     
                     {/* Centered Character Text block */}
