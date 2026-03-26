@@ -122,7 +122,8 @@ const GameView = ({ user }) => {
       name: "Penn",
       desc: "The male lead student who is jolly and enjoys playing with his classmates, but is often found struggling with reading words and sentences.",
       placeholder: "bg-blue-800 text-white",
-      letter: "P"
+      letter: "P",
+      image: "/assets/penn.png"
     },
     {
       name: "Paige",
