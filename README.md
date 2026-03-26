@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div align="center">
   <img height="70px" src="https://skillicons.dev/icons?i=react,vite,tailwind" alt="Technology Icons">
   <h1>React Vite Tailwind App Template</h1>
@@ -210,3 +211,6 @@ _Feel free to reach out if you have questions or just want to chat about web adv
 <p align="center">
    Thank you for using the <strong>React Vite Tailwind App Template</strong>! Happy coding! 🚀
 </p>
+=======
+# Magic-Reader-Game-Site
+>>>>>>> db5c0fbe2027beee3d6d2654453a5fed1e55cb2a
