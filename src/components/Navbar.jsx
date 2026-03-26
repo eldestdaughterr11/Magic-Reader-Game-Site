@@ -72,14 +72,14 @@ const Navbar = ({ onNavigate }) => {
             <button
               key={link.id}
               onClick={() => handleLinkClick(link.id)}
-              className="font-magic text-3xl text-[#E9D5FF] hover:text-white text-left transition-colors border-b-2 border-[#5E6847] pb-2"
+              className="font-magic text-3xl text-[#E9D5FF] hover:text-white text-center transition-colors border-b-2 border-[#5E6847] pb-2"
             >
               {link.name}
             </button>
           ))}
           <button 
             onClick={() => handleLinkClick('logout')}
-            className="text-lg font-black text-red-200 uppercase tracking-widest text-left"
+            className="text-lg font-black text-red-200 uppercase tracking-widest text-center"
           >
             Logout
           </button>
