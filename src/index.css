@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Berkshire+Swash&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --magic-green: #77815C;
+  --magic-purple: #4A3B56;
+  --magic-bg: #3E2F49;
+  --magic-light-purple: #E9D5FF;
+  --magic-gold: #FFD700;
+  --magic-orange: #C67C4E;
+}
+
+body {
+  @apply bg-[#3E2F49] text-white;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+.font-magic {
+  font-family: 'Berkshire Swash', cursive;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2D1E3A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #77815C;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8FA26D;
+}
+
+@layer components {
+  .btn-magic {
+    @apply bg-[#2D1E3A] text-white px-8 py-2 rounded-sm font-bold uppercase tracking-wider hover:bg-[#3D2E4A] transition-all;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
