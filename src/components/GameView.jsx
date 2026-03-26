@@ -45,26 +45,26 @@ const GameView = ({ user }) => {
   const renderGameplay = () => (
     <>
       {/* Intro */}
-      <section className="text-center max-w-4xl space-y-6">
-        <h2 className="font-magic text-[#E9D5FF] text-4xl">What is Magic Reader?</h2>
-        <p className="text-xl font-bold leading-relaxed text-[#E9D5FF]/90">
-          Magic Reader is an educational game that combines animation, puzzles, and storytelling. In this game, the player will encounter educational challenges as they progress through each stage of the map. The gameplay will consist of three types: Shooting game, Puzzle Game, and a Platformer Game with brainy tasks for learning, where you are on a hunt, a mission to mend "Word Valley" wrecked by this villain named Miss Spell who stirred up total disorder.
+      <section className="text-center max-w-4xl space-y-4 md:space-y-6">
+        <h2 className="font-magic text-[#E9D5FF] text-3xl md:text-4xl px-2">What is Magic Reader?</h2>
+        <p className="text-base md:text-xl font-bold leading-relaxed text-[#E9D5FF]/90 px-4">
+          Magic Reader is an educational game that combines animation, puzzles, and storytelling. In this game, the player will encounter educational challenges as they progress through each stage of the map. The gameplay will consist of three types: Shooting game, Puzzle Game, and a Platformer Game with brainy tasks for learning.
         </p>
       </section>
 
       {/* How to Play */}
-      <section className="w-full flex flex-col items-center gap-12">
-        <h2 className="font-magic text-4xl text-[#E9D5FF]">How to Play</h2>
+      <section className="w-full flex flex-col items-center gap-8 md:gap-12">
+        <h2 className="font-magic text-3xl md:text-4xl text-[#E9D5FF]">How to Play</h2>
         
-        <div className="flex flex-col gap-24 w-full">
+        <div className="flex flex-col gap-16 md:gap-24 w-full">
           {challenges.map((challenge, index) => (
-            <div key={challenge.letter} className={`flex flex-col md:flex-row items-center gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-              <div className={`w-64 h-64 ${challenge.color} rounded-full flex items-center justify-center p-4 shadow-2xl relative`}>
-                <span className="text-white font-black text-9xl drop-shadow-2xl">{challenge.letter}</span>
-                <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+            <div key={challenge.letter} className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+              <div className={`w-48 h-48 md:w-64 md:h-64 ${challenge.color} rounded-full flex items-center justify-center p-4 shadow-2xl relative shrink-0`}>
+                <span className="text-white font-black text-6xl md:text-9xl drop-shadow-2xl">{challenge.letter}</span>
+                <div className="absolute -top-4 -right-4 w-12 h-12 md:w-20 md:h-20 bg-white/10 rounded-full blur-xl"></div>
               </div>
-              <div className="flex-1 text-center md:text-left space-y-4">
-                <p className="text-xl font-bold leading-relaxed text-[#E9D5FF]/90">
+              <div className="flex-1 text-center md:text-left space-y-3 px-4">
+                <p className="text-lg md:text-xl font-bold leading-relaxed text-[#E9D5FF]/90">
                   {challenge.text}
                 </p>
               </div>
@@ -74,43 +74,45 @@ const GameView = ({ user }) => {
       </section>
 
       {/* Objectives */}
-      <section className="text-center max-w-4xl space-y-12 py-16">
-        <h2 className="font-magic text-[#E9D5FF] text-4xl">Objectives</h2>
-        <div className="flex justify-center gap-4 mb-8">
+      <section className="text-center max-w-4xl space-y-8 md:space-y-12 py-8 md:py-16 w-full">
+        <h2 className="font-magic text-[#E9D5FF] text-3xl md:text-4xl">Objectives</h2>
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-4 md:mb-8 px-2">
            {['A', 'E', 'I', 'O', 'U'].map(v => (
-             <div key={v} className="bg-purple-900/50 w-24 h-32 rounded-xl flex items-center justify-center border-4 border-purple-800 shadow-xl transform hover:scale-110 transition-transform">
-                <span className="text-white font-black text-6xl drop-shadow-lg">{v}</span>
+             <div key={v} className="bg-purple-900/50 w-16 h-24 md:w-24 md:h-32 rounded-lg md:rounded-xl flex items-center justify-center border-2 md:border-4 border-purple-800 shadow-xl transform hover:scale-110 transition-transform">
+                <span className="text-white font-black text-4xl md:text-6xl drop-shadow-lg">{v}</span>
              </div>
            ))}
         </div>
-        <p className="text-xl font-bold leading-relaxed text-[#E9D5FF]/90">
+        <p className="text-base md:text-xl font-bold leading-relaxed text-[#E9D5FF]/90 px-4">
           The main objective of the game is to restore Word Valley and defeat Miss Spell through the Ritual of Restoration.
         </p>
       </section>
 
       {/* Controls Table */}
-      <section className="w-full max-w-2xl py-12">
-        <h2 className="font-magic text-4xl text-[#E9D5FF] text-center mb-12">Controls</h2>
-        <table className="w-full border-collapse border-4 border-[#77815C]">
-          <thead>
-            <tr className="bg-[#77815C] text-[#E9D5FF] border-b-4 border-[#77815C]">
-              <th className="py-4 px-6 text-xl text-left border-r-4 border-[#77815C]">Keystrokes</th>
-              <th className="py-4 px-6 text-xl text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="bg-amber-100 text-[#211915] font-black uppercase tracking-tight">
-            {[
-              { k: 'WASD', a: 'Movement' },
-              { k: 'Spacebar', a: 'Jump' },
-              { k: 'Mouse', a: 'Interactions' },
-            ].map((c, i) => (
-              <tr key={i} className="border-b-2 border-[#77815C]/20">
-                <td className="py-3 px-6 border-r-4 border-[#77815C]">{c.k}</td>
-                <td className="py-3 px-6">{c.a}</td>
+      <section className="w-full max-w-2xl py-8">
+        <h2 className="font-magic text-3xl md:text-4xl text-[#E9D5FF] text-center mb-8 md:mb-12">Controls</h2>
+        <div className="overflow-x-auto rounded-sm md:rounded-none">
+          <table className="w-full border-collapse border-2 md:border-4 border-[#77815C]">
+            <thead>
+              <tr className="bg-[#77815C] text-[#E9D5FF] border-b-2 md:border-b-4 border-[#77815C]">
+                <th className="py-3 md:py-4 px-4 md:px-6 text-lg md:text-xl text-left border-r-2 md:border-r-4 border-[#77815C]">Keystrokes</th>
+                <th className="py-3 md:py-4 px-4 md:px-6 text-lg md:text-xl text-left">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-amber-100 text-[#211915] font-black uppercase tracking-tight text-sm md:text-base">
+              {[
+                { k: 'WASD', a: 'Movement' },
+                { k: 'Spacebar', a: 'Jump' },
+                { k: 'Mouse', a: 'Interactions' },
+              ].map((c, i) => (
+                <tr key={i} className="border-b border-[#77815C]/20">
+                  <td className="py-2 md:py-3 px-4 md:px-6 border-r-2 md:border-r-4 border-[#77815C]">{c.k}</td>
+                  <td className="py-2 md:py-3 px-4 md:px-6">{c.a}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </>
   );
@@ -146,9 +148,9 @@ const GameView = ({ user }) => {
   );
 
   return (
-    <div className="flex flex-col items-center py-16 px-4 max-w-6xl mx-auto space-y-20">
+    <div className="flex flex-col items-center py-10 md:py-16 px-4 max-w-6xl mx-auto space-y-12 md:space-y-20">
       {/* Top Tabs */}
-      <div className="flex flex-wrap justify-center gap-8 md:gap-16 font-magic text-4xl md:text-5xl text-[#E9D5FF]/60 mt-[-20px]">
+      <div className="flex flex-wrap justify-center gap-6 md:gap-16 font-magic text-2xl md:text-5xl text-[#E9D5FF]/60">
         {['gameplay', 'characters', 'download'].map(tab => (
             <button 
                 key={tab}
@@ -161,9 +163,11 @@ const GameView = ({ user }) => {
       </div>
 
       {/* Logic based on tab */}
-      {activeTab === 'gameplay' && renderGameplay()}
-      {activeTab === 'characters' && renderCharacters()}
-      {activeTab === 'download' && renderDownload()}
+      <div className="w-full flex flex-col items-center space-y-12 md:space-y-20">
+        {activeTab === 'gameplay' && renderGameplay()}
+        {activeTab === 'characters' && renderCharacters()}
+        {activeTab === 'download' && renderDownload()}
+      </div>
 
       {/* Score Submission (Fixed at bottom) */}
       <section className="w-full bg-[#2D1E3A]/80 p-8 rounded-xl border border-white/20 text-center space-y-6 shadow-2xl">

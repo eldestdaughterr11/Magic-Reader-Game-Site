@@ -11,41 +11,55 @@ import AboutView from "./components/AboutView";
 import MagicLogo from "./components/MagicLogo";
 import { supabase } from "./lib/supabaseClient";
 
+import AdminLogin from "./components/AdminLogin";
+import AdminDashboard from "./components/AdminDashboard";
+
 function App() {
   const [currentView, setCurrentView] = useState("loading");
   const [session, setSession] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     // Get initial session
     const getInitialSession = async () => {
         try {
-            const { data: { session } } = await supabase.auth.getSession();
-            setSession(session);
-            if (session) {
-              if (currentView === "login" || currentView === "signup" || currentView === "loading") setCurrentView("home");
+            const { data: { session: initialSession } } = await supabase.auth.getSession();
+            setSession(initialSession);
+            
+            if (initialSession) {
+              // Check if admin
+              const adminStatus = initialSession.user?.email === 'admin@magicreader.com';
+              setIsAdmin(adminStatus);
+              
+              if (currentView === "login" || currentView === "signup" || currentView === "loading" || currentView === "admin-login") {
+                setCurrentView(adminStatus ? "admin-dashboard" : "home");
+              }
             } else {
-              // Only redirect to login if we are currently loading or on a protected view
-              // If we are already on 'signup', stay there.
-              if (currentView === "loading" || (!["login", "signup"].includes(currentView))) {
+              if (currentView === "loading" || (!["login", "signup", "admin-login"].includes(currentView))) {
                 setCurrentView("login");
               }
             }
         } catch (err) {
             console.error(err);
-            if (currentView !== "signup") setCurrentView("login");
+            if (!["signup", "admin-login"].includes(currentView)) setCurrentView("login");
         }
     };
 
     getInitialSession();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      if (session) {
-        if (currentView === "login" || currentView === "signup" || currentView === "loading") setCurrentView("home");
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      setSession(newSession);
+      if (newSession) {
+        const adminStatus = newSession.user?.email === 'admin@magicreader.com';
+        setIsAdmin(adminStatus);
+        
+        if (currentView === "login" || currentView === "signup" || currentView === "loading" || currentView === "admin-login") {
+          setCurrentView(adminStatus ? "admin-dashboard" : "home");
+        }
       } else {
-        // If logged out, only redirect to login if we're not on the signup page
-        if (currentView !== "signup") {
+        setIsAdmin(false);
+        if (currentView !== "signup" && currentView !== "admin-login") {
           setCurrentView("login");
         }
       }
@@ -67,19 +81,24 @@ function App() {
         handleLogout();
         return;
     }
-    if (["home", "game", "leaderboards", "resources", "about"].includes(viewId)) {
-      setCurrentView(viewId);
+    // Access control: Don't let normal users go to admin dashboard
+    if (viewId === "admin-dashboard" && !isAdmin) {
+        setCurrentView("home");
+        return;
     }
+    setCurrentView(viewId);
   };
 
   const renderHeader = () => {
+    if (currentView === "admin-dashboard") return null; // No navbar for admin for now
+    
     if (!session) {
-      if (currentView === "loading") return null;
+      if (["loading", "admin-login"].includes(currentView)) return null;
       return (
         <header className="bg-[#77815C] py-4 px-6 flex items-center border-b-4 border-[#5E6847] relative">
-          <button className="text-[#E9D5FF] text-4xl font-bold">...</button>
+          <button className="text-[#E9D5FF] text-2xl md:text-4xl font-bold">...</button>
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-             <MagicLogo className="scale-75" />
+             <MagicLogo className="scale-[0.5] md:scale-75" />
           </div>
         </header>
       );
@@ -102,7 +121,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#3E2F49] flex flex-col font-sans">
+    <div className={`min-h-screen flex flex-col font-sans ${currentView === 'admin-dashboard' || currentView === 'admin-login' ? 'bg-black' : 'bg-[#3E2F49]'}`}>
       {renderHeader()}
 
       <main className="flex-grow">
@@ -117,6 +136,15 @@ function App() {
             onSignUpSuccess={() => setCurrentView("login")} 
             onSwitchToLogin={() => setCurrentView("login")} 
           />
+        )}
+        {currentView === "admin-login" && (
+          <AdminLogin 
+            onLoginSuccess={handleLoginSuccess}
+            onSwitchToUserLogin={() => setCurrentView("login")}
+          />
+        )}
+        {currentView === "admin-dashboard" && (
+          <AdminDashboard user={currentUser} />
         )}
         {currentView === "home" && (
           <HomeView user={currentUser} />
@@ -137,10 +165,23 @@ function App() {
         )}
       </main>
 
+      {/* Conditional Footer for Admin Access */}
+      {!session && currentView === 'login' && (
+        <div className="bg-[#3E2F49] pb-8 text-center">
+            <button 
+                onClick={() => setCurrentView('admin-login')}
+                className="text-[10px] text-white/20 hover:text-red-500/50 uppercase font-black tracking-widest transition-colors"
+            >
+                Staff Entry — Authorized Only
+            </button>
+        </div>
+      )}
+
       <Footer onNavigate={handleNavigate} />
     </div>
   );
 }
 
 export default App;
+
 
